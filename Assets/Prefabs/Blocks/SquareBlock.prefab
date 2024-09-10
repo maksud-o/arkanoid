@@ -144,3 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ballTag: Ball
+  _multipleHitsSprites: []
+  _scoreGiven: 1

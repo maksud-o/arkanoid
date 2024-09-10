@@ -1,11 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
 public class BlockBehaviour : MonoBehaviour
 {
+    public static event Action<int> OnBlockDestroy;
+
     [SerializeField] private string _ballTag;
+
+    [Header("Block Settings")]
     [Tooltip("Can be null")][SerializeField] private List<Sprite> _multipleHitsSprites;
+    [SerializeField] private int _scoreGiven = 1;
 
     private SpriteRenderer _spriteRenderer;
     private bool _isMultiHit = true;
@@ -29,6 +35,7 @@ public class BlockBehaviour : MonoBehaviour
             if (!_isMultiHit || !IsAlive())
             {
                 gameObject.SetActive(false);
+                OnBlockDestroy?.Invoke(_scoreGiven);
             }
         }
     }

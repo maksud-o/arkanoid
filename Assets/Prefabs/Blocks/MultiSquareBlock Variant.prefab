@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1036887307251093930, guid: 3f33026429140c14190845b102269152, type: 3}
+      propertyPath: _scoreGiven
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036887307251093930, guid: 3f33026429140c14190845b102269152, type: 3}
       propertyPath: _multipleHitsSprites.Array.size
       value: 2
       objectReference: {fileID: 0}
