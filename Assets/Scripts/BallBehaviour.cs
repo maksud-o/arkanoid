@@ -5,12 +5,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BallBehaviour : MonoBehaviour
 {
-    [SerializeField] private float _launchForce = 20; // Хорошая ли идея для игровых настроек в этом и других скриптах создать один ScriptableObject и прокидывать его везде где нужно?
+    [SerializeField] private float _launchForce = 20;
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference _launchBallReference;
 
     private Rigidbody2D _rb;
+    private bool _isLaunched = false;
 
     private void Awake()
     {
@@ -30,8 +31,9 @@ public class BallBehaviour : MonoBehaviour
 
     private void OnLaunch(InputAction.CallbackContext _)
     {
+        _isLaunched = true;
         gameObject.transform.parent = null;
         _rb.simulated = true;
-        _rb.AddForce(new Vector2(Random.Range(-1f, 1f), 1f) * _launchForce, ForceMode2D.Impulse);
+        _rb.AddForce(new Vector2(Random.Range(-1f, 1f), 1f).normalized * _launchForce, ForceMode2D.Impulse);
     }
 }
