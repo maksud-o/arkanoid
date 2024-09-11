@@ -1,11 +1,15 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class BallBehaviour : MonoBehaviour
 {
+    public static event Action OnFall;
+
+    [Header("Ball Settings")]
     [SerializeField] private float _launchForce = 20;
+    [SerializeField] private float _heightThreshold = -8f;
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference _launchBallReference;
@@ -17,6 +21,14 @@ public class BallBehaviour : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _rb.simulated = false;
+    }
+
+    private void Update()
+    {
+        if (transform.position.y <= _heightThreshold)
+        {
+            OnFall?.Invoke();
+        }
     }
 
     private void OnEnable()
@@ -31,9 +43,12 @@ public class BallBehaviour : MonoBehaviour
 
     private void OnLaunch(InputAction.CallbackContext _)
     {
-        _isLaunched = true;
-        gameObject.transform.parent = null;
-        _rb.simulated = true;
-        _rb.AddForce(new Vector2(Random.Range(-1f, 1f), 1f).normalized * _launchForce, ForceMode2D.Impulse);
+        if (!_isLaunched)
+        {
+            _isLaunched = true;
+            gameObject.transform.parent = null;
+            _rb.simulated = true;
+            _rb.AddForce(new Vector2(UnityEngine.Random.Range(-1f, 1f), 1f).normalized * _launchForce, ForceMode2D.Impulse);
+        }
     }
 }
