@@ -10,11 +10,11 @@ public class BorderColliderSetup : MonoBehaviour
     private void Awake()
     {
         _edgeCollider = GetComponent<EdgeCollider2D>();
-        _camera = Camera.main;
     }
 
     private void Start()
     {
+        _camera = Camera.main;
         var points = new List<Vector2>
         {
             _camera.ScreenToWorldPoint(Vector2.zero),
