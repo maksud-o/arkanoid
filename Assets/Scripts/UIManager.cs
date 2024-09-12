@@ -17,12 +17,12 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        BlockBehaviour.OnBlockDestroy += ChangeScore;
+        Block.OnBlockDestroy += ChangeScore;
     }
 
     private void OnDisable()
     {
-        BlockBehaviour.OnBlockDestroy -= ChangeScore;
+        Block.OnBlockDestroy -= ChangeScore;
     }
 
     private void ChangeScore(int score)

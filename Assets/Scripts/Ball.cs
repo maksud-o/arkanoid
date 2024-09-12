@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BallBehaviour : MonoBehaviour
+public class Ball : MonoBehaviour
 {
     public static event Action OnFall;
 

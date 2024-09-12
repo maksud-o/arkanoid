@@ -5,12 +5,12 @@ public class GameOverManager : MonoBehaviour
 {
     private void OnEnable()
     {
-        BallBehaviour.OnFall += OnGameOver;
+        Ball.OnFall += OnGameOver;
     }
 
     private void OnDisable()
     {
-        BallBehaviour.OnFall -= OnGameOver;
+        Ball.OnFall -= OnGameOver;
     }
 
     private void OnGameOver()

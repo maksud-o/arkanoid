@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EdgeCollider2D))]
-public class SetupBorderCollider : MonoBehaviour
+public class BorderColliderSetup : MonoBehaviour
 {
-    private EdgeCollider2D edgeCollider;
+    private EdgeCollider2D _edgeCollider;
     private Camera _camera;
 
     private void Awake()
     {
-        edgeCollider = GetComponent<EdgeCollider2D>();
+        _edgeCollider = GetComponent<EdgeCollider2D>();
         _camera = Camera.main;
     }
 
@@ -23,6 +23,6 @@ public class SetupBorderCollider : MonoBehaviour
             _camera.ScreenToWorldPoint(new Vector2(0, Screen.height)),
             _camera.ScreenToWorldPoint(Vector2.zero)
         };
-        edgeCollider.SetPoints(points);
+        _edgeCollider.SetPoints(points);
     }
 }
