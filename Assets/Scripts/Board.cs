@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BoardController : MonoBehaviour
+public class Board : MonoBehaviour
 {
     [SerializeField] private InputActionReference _moveBoardPointerReference;
 

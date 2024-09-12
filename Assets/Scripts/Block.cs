@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
-public class BlockBehaviour : MonoBehaviour
+public class Block : MonoBehaviour
 {
     public static event Action<int> OnBlockDestroy;
 

@@ -3,28 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _ball;
-
-    [Header("Game Over Settings")]
-    [SerializeField] private float _heightThreshold = -8;
-
-    private Scene _scene;
-
-    private void Start()
+    private void OnEnable()
     {
-        _scene = SceneManager.GetActiveScene();
+        Ball.OnFall += OnGameOver;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        GameOverCheck();
+        Ball.OnFall -= OnGameOver;
     }
 
-    private void GameOverCheck()
+    private void OnGameOver()
     {
-        if (_ball.transform.position.y <= _heightThreshold)
-        {
-            SceneManager.LoadScene(_scene.name, LoadSceneMode.Single);
-        }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 }
