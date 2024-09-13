@@ -29,8 +29,8 @@ public class Board : MonoBehaviour
 
     private void MoveAlongPointerPosition()
     {
-        Vector2 mousePosition = new Vector2(_moveBoardPointerReference.action.ReadValue<float>(), 0);
-        Vector2 newPosition = new Vector2(_camera.ScreenToWorldPoint(mousePosition).x, transform.position.y);
+        Vector2 mousePosition = new(_moveBoardPointerReference.action.ReadValue<float>(), 0);
+        Vector2 newPosition = new(_camera.ScreenToWorldPoint(mousePosition).x, transform.position.y);
         transform.position = newPosition;
     }
 
