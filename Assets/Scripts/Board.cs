@@ -1,38 +1,41 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Board : MonoBehaviour
+namespace Arkanoid
 {
-    #region Variables
-
-    [SerializeField] private InputActionReference _moveBoardPointerReference;
-
-    private Camera _camera;
-
-    #endregion
-
-    #region Unity lifecycle
-
-    private void Start()
+    public class Board : MonoBehaviour
     {
-        _camera = Camera.main;
+        #region Variables
+
+        [SerializeField] private InputActionReference _moveBoardPointerReference;
+
+        private Camera _camera;
+
+        #endregion
+
+        #region Unity lifecycle
+
+        private void Start()
+        {
+            _camera = Camera.main;
+        }
+
+        private void Update()
+        {
+            MoveAlongPointerPosition();
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void MoveAlongPointerPosition()
+        {
+            Vector2 mousePosition = new(_moveBoardPointerReference.action.ReadValue<float>(), 0);
+            Vector2 newPosition = new(_camera.ScreenToWorldPoint(mousePosition).x, transform.position.y);
+            transform.position = newPosition;
+        }
+
+        #endregion
     }
-
-    private void Update()
-    {
-        MoveAlongPointerPosition();
-    }
-
-    #endregion
-
-    #region Private methods
-
-    private void MoveAlongPointerPosition()
-    {
-        Vector2 mousePosition = new(_moveBoardPointerReference.action.ReadValue<float>(), 0);
-        Vector2 newPosition = new(_camera.ScreenToWorldPoint(mousePosition).x, transform.position.y);
-        transform.position = newPosition;
-    }
-
-    #endregion
 }

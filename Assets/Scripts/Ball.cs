@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +8,6 @@ public class Ball : MonoBehaviour
 
     [Header("Ball Settings")]
     [SerializeField] private float _launchForce = 20;
-    [SerializeField] private float _heightThreshold = -8f;
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference _launchBallReference;
@@ -19,26 +17,12 @@ public class Ball : MonoBehaviour
 
     #endregion
 
-    #region Events
-
-    public static event Action OnFall;
-
-    #endregion
-
     #region Unity lifecycle
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _rb.simulated = false;
-    }
-
-    private void Update()
-    {
-        if (transform.position.y <= _heightThreshold)
-        {
-            OnFall?.Invoke();
-        }
     }
 
     private void OnEnable()
