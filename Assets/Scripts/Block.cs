@@ -5,17 +5,28 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
 public class Block : MonoBehaviour
 {
-    public static event Action<int> OnBlockDestroy;
+    #region Variables
 
     [SerializeField] private string _ballTag;
 
     [Header("Block Settings")]
-    [Tooltip("Can be null")][SerializeField] private List<Sprite> _multipleHitsSprites;
+    [Tooltip("Can be null")] [SerializeField]
+    private List<Sprite> _multipleHitsSprites;
     [SerializeField] private int _scoreGiven = 1;
+    private int _hitStage;
+    private bool _isMultiHit = true;
 
     private SpriteRenderer _spriteRenderer;
-    private bool _isMultiHit = true;
-    private int _hitStage = 0;
+
+    #endregion
+
+    #region Events
+
+    public static event Action<int> OnBlockDestroy;
+
+    #endregion
+
+    #region Unity lifecycle
 
     private void Awake()
     {
@@ -25,7 +36,6 @@ public class Block : MonoBehaviour
         {
             _isMultiHit = false;
         }
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -40,6 +50,10 @@ public class Block : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Private methods
+
     private bool IsAlive()
     {
         if (_hitStage < _multipleHitsSprites.Count)
@@ -50,7 +64,10 @@ public class Block : MonoBehaviour
         {
             return false;
         }
+
         _hitStage++;
         return true;
     }
+
+    #endregion
 }

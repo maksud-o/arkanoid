@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
+    #region Unity lifecycle
+
     private void OnEnable()
     {
         Ball.OnFall += OnGameOver;
@@ -13,8 +15,14 @@ public class GameOverManager : MonoBehaviour
         Ball.OnFall -= OnGameOver;
     }
 
+    #endregion
+
+    #region Private methods
+
     private void OnGameOver()
     {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
+
+    #endregion
 }

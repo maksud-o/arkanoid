@@ -3,9 +3,15 @@ using UnityEngine.InputSystem;
 
 public class Board : MonoBehaviour
 {
+    #region Variables
+
     [SerializeField] private InputActionReference _moveBoardPointerReference;
 
     private Camera _camera;
+
+    #endregion
+
+    #region Unity lifecycle
 
     private void Start()
     {
@@ -17,10 +23,16 @@ public class Board : MonoBehaviour
         MoveAlongPointerPosition();
     }
 
+    #endregion
+
+    #region Private methods
+
     private void MoveAlongPointerPosition()
     {
-        var mousePosition = new Vector2(_moveBoardPointerReference.action.ReadValue<float>(), 0);
-        var newPosition = new Vector2(_camera.ScreenToWorldPoint(mousePosition).x, transform.position.y);
+        Vector2 mousePosition = new Vector2(_moveBoardPointerReference.action.ReadValue<float>(), 0);
+        Vector2 newPosition = new Vector2(_camera.ScreenToWorldPoint(mousePosition).x, transform.position.y);
         transform.position = newPosition;
     }
+
+    #endregion
 }

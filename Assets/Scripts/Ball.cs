@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ball : MonoBehaviour
 {
-    public static event Action OnFall;
+    #region Variables
 
     [Header("Ball Settings")]
     [SerializeField] private float _launchForce = 20;
@@ -13,9 +13,19 @@ public class Ball : MonoBehaviour
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference _launchBallReference;
+    private bool _isLaunched;
 
     private Rigidbody2D _rb;
-    private bool _isLaunched = false;
+
+    #endregion
+
+    #region Events
+
+    public static event Action OnFall;
+
+    #endregion
+
+    #region Unity lifecycle
 
     private void Awake()
     {
@@ -41,6 +51,10 @@ public class Ball : MonoBehaviour
         _launchBallReference.action.performed -= OnLaunch;
     }
 
+    #endregion
+
+    #region Private methods
+
     private void OnLaunch(InputAction.CallbackContext _)
     {
         if (!_isLaunched)
@@ -48,7 +62,10 @@ public class Ball : MonoBehaviour
             _isLaunched = true;
             gameObject.transform.parent = null;
             _rb.simulated = true;
-            _rb.AddForce(new Vector2(UnityEngine.Random.Range(-1f, 1f), 1f).normalized * _launchForce, ForceMode2D.Impulse);
+            _rb.AddForce(new Vector2(UnityEngine.Random.Range(-1f, 1f), 1f).normalized * _launchForce,
+                ForceMode2D.Impulse);
         }
     }
+
+    #endregion
 }

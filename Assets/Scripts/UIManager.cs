@@ -1,14 +1,19 @@
-using System;
 using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    #region Variables
+
     [Header("Score Settings")]
     [SerializeField] private string _scoreTemplate = "Score: {0}";
     [SerializeField] private TextMeshProUGUI _scoreText;
 
-    private int _currentScore = 0;
+    private int _currentScore;
+
+    #endregion
+
+    #region Unity lifecycle
 
     private void Awake()
     {
@@ -25,6 +30,10 @@ public class UIManager : MonoBehaviour
         Block.OnBlockDestroy -= ChangeScore;
     }
 
+    #endregion
+
+    #region Private methods
+
     private void ChangeScore(int score)
     {
         _currentScore += score;
@@ -35,4 +44,6 @@ public class UIManager : MonoBehaviour
     {
         _scoreText.text = string.Format(_scoreTemplate, score);
     }
+
+    #endregion
 }
