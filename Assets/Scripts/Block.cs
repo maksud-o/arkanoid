@@ -2,72 +2,68 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
-public class Block : MonoBehaviour
+namespace Arkanoid
 {
-    #region Variables
-
-    [SerializeField] private string _ballTag;
-
-    [Header("Block Settings")]
-    [Tooltip("Can be null")] [SerializeField]
-    private List<Sprite> _multipleHitsSprites;
-    [SerializeField] private int _scoreGiven = 1;
-    private int _hitStage;
-    private bool _isMultiHit = true;
-
-    private SpriteRenderer _spriteRenderer;
-
-    #endregion
-
-    #region Events
-
-    public static event Action<int> OnBlockDestroy;
-
-    #endregion
-
-    #region Unity lifecycle
-
-    private void Awake()
+    [RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
+    public class Block : MonoBehaviour
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        #region Variables
 
-        if (_multipleHitsSprites?.Count == 0)
+        [SerializeField] private string _ballTag;
+
+        [Header("Block Settings")]
+        [Tooltip("Can be null")] [SerializeField]
+        private List<Sprite> _multipleHitsSprites;
+        [SerializeField] private int _scoreGiven = 1;
+        private int _hitStage = 0;
+
+        private SpriteRenderer _spriteRenderer;
+
+        #endregion
+
+        #region Events
+
+        public static event Action<int> OnBlockDestroy;
+
+        #endregion
+
+        #region Unity lifecycle
+
+        private void Awake()
         {
-            _isMultiHit = false;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag(_ballTag))
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!_isMultiHit || !IsAlive())
+            if (collision.gameObject.CompareTag(_ballTag))
             {
-                gameObject.SetActive(false);
-                OnBlockDestroy?.Invoke(_scoreGiven);
+                if (!IsAlive())
+                {
+                    gameObject.SetActive(false);
+                    OnBlockDestroy?.Invoke(_scoreGiven);
+                }
+                else
+                {
+                    HandleMultiHit();
+                }
             }
         }
-    }
 
-    #endregion
+        #endregion
 
-    #region Private methods
+        #region Private methods
 
-    private bool IsAlive()
-    {
-        if (_hitStage < _multipleHitsSprites.Count)
+        private bool IsAlive()
         {
-            _spriteRenderer.sprite = _multipleHitsSprites[_hitStage];
-        }
-        else
-        {
-            return false;
+            return _hitStage < _multipleHitsSprites.Count;
         }
 
-        _hitStage++;
-        return true;
-    }
+        private void HandleMultiHit()
+        {
+            _spriteRenderer.sprite = _multipleHitsSprites[_hitStage++];
+        }
 
-    #endregion
+        #endregion
+    }
 }
