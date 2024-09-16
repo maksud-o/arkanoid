@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace Arkanoid
 {
+    [RequireComponent(typeof(BoxCollider2D))]
     public class Board : MonoBehaviour
     {
         #region Variables
@@ -10,10 +11,16 @@ namespace Arkanoid
         [SerializeField] private InputActionReference _moveBoardPointerReference;
 
         private Camera _camera;
+        private BoxCollider2D _collider;
 
         #endregion
 
         #region Unity lifecycle
+
+        private void Awake()
+        {
+            _collider = GetComponent<BoxCollider2D>();
+        }
 
         private void Start()
         {
@@ -23,11 +30,21 @@ namespace Arkanoid
         private void Update()
         {
             MoveAlongPointerPosition();
+            ClampXWithinScreen();
         }
 
         #endregion
 
         #region Private methods
+
+        private void ClampXWithinScreen()
+        {
+            float min = _camera.ScreenToWorldPoint(Vector2.zero).x + _collider.size.x / 2;
+            float max = _camera.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x - _collider.size.x / 2;
+            float x = transform.position.x;
+            x = Mathf.Clamp(x, min, max);
+            transform.position = new Vector2(x, transform.position.y);
+        }
 
         private void MoveAlongPointerPosition()
         {

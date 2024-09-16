@@ -5157,11 +5157,11 @@ Transform:
   m_GameObject: {fileID: 875016000}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1500001, z: 0}
+  m_LocalPosition: {x: 0, y: -6.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2037882970}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &875016003
 Rigidbody2D:
@@ -5237,7 +5237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0799a29f46ce1b45bdc2188e2e1849f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _launchForce: 20
+  _board: {fileID: 2037882968}
+  _launchForce: 15
   _launchBallReference: {fileID: 8610656151365823519, guid: dccfbf5575cc6bf42832951ac7520a68, type: 3}
 --- !u!1001 &884484528
 PrefabInstance:
@@ -12423,8 +12424,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 875016002}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2037882971
@@ -13622,6 +13622,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 28580950}
   - {fileID: 1682729}
+  - {fileID: 875016002}
   - {fileID: 2037882970}
   - {fileID: 746322343}
   - {fileID: 1417666869}

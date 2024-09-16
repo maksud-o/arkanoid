@@ -8,7 +8,7 @@ namespace Arkanoid.Colliders
     {
         #region Unity lifecycle
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter2D()
         {
             SceneLoadService.Instance.ResetScene();
         }

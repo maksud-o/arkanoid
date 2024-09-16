@@ -1,55 +1,73 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Ball : MonoBehaviour
+namespace Arkanoid
 {
-    #region Variables
-
-    [Header("Ball Settings")]
-    [SerializeField] private float _launchForce = 20;
-
-    [Header("Input Actions")]
-    [SerializeField] private InputActionReference _launchBallReference;
-    private bool _isLaunched;
-
-    private Rigidbody2D _rb;
-
-    #endregion
-
-    #region Unity lifecycle
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class Ball : MonoBehaviour
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.simulated = false;
-    }
+        #region Variables
 
-    private void OnEnable()
-    {
-        _launchBallReference.action.performed += OnLaunch;
-    }
+        [SerializeField] private GameObject _board;
 
-    private void OnDisable()
-    {
-        _launchBallReference.action.performed -= OnLaunch;
-    }
+        [Header("Ball Settings")]
+        [SerializeField] private float _launchForce = 15;
 
-    #endregion
+        [Header("Input Actions")]
+        [SerializeField] private InputActionReference _launchBallReference;
+        private bool _isLaunched;
 
-    #region Private methods
+        private Rigidbody2D _rb;
 
-    private void OnLaunch(InputAction.CallbackContext _)
-    {
-        if (!_isLaunched)
+        #endregion
+
+        #region Unity lifecycle
+
+        private void Awake()
         {
-            _isLaunched = true;
-            gameObject.transform.parent = null;
-            _rb.simulated = true;
-            _rb.AddForce(new Vector2(UnityEngine.Random.Range(-1f, 1f), 1f).normalized * _launchForce,
-                ForceMode2D.Impulse);
+            _rb = GetComponent<Rigidbody2D>();
+            _rb.simulated = false;
         }
-    }
 
-    #endregion
+        private void Update()
+        {
+            if (!_isLaunched)
+            {
+                MoveAlongBoard();
+            }
+        }
+
+        private void OnEnable()
+        {
+            _launchBallReference.action.performed += OnLaunch;
+        }
+
+        private void OnDisable()
+        {
+            _launchBallReference.action.performed -= OnLaunch;
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void MoveAlongBoard()
+        {
+            transform.position = new Vector2(_board.transform.position.x, transform.position.y);
+        }
+
+        private void OnLaunch(InputAction.CallbackContext _)
+        {
+            if (!_isLaunched)
+            {
+                _isLaunched = true;
+                _rb.simulated = true;
+                _rb.AddForce(new Vector2(Random.Range(-1f, 1f), 1f).normalized * _launchForce,
+                    ForceMode2D.Impulse);
+            }
+        }
+
+        #endregion
+    }
 }
