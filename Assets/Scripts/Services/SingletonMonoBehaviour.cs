@@ -12,7 +12,7 @@ namespace Arkanoid.Services
 
         #region Unity lifecycle
 
-        private void Awake()
+        protected void Awake()
         {
             if (Instance != null)
             {

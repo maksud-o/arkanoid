@@ -1,3 +1,4 @@
+using Arkanoid.Colliders;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -17,8 +18,9 @@ namespace Arkanoid
         [Header("Input Actions")]
         [SerializeField] private InputActionReference _launchBallReference;
         private bool _isLaunched;
-
         private Rigidbody2D _rb;
+
+        private Vector2 _startingPosition;
 
         #endregion
 
@@ -27,7 +29,15 @@ namespace Arkanoid
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+
             _rb.simulated = false;
+            _startingPosition = transform.position;
+        }
+
+        private void Start()
+        {
+            _launchBallReference.action.performed += OnLaunch;
+            BallFallDetector.OnBallFall += OnBallFallCallback;
         }
 
         private void Update()
@@ -38,14 +48,10 @@ namespace Arkanoid
             }
         }
 
-        private void OnEnable()
-        {
-            _launchBallReference.action.performed += OnLaunch;
-        }
-
         private void OnDisable()
         {
             _launchBallReference.action.performed -= OnLaunch;
+            BallFallDetector.OnBallFall -= OnBallFallCallback;
         }
 
         #endregion
@@ -55,6 +61,13 @@ namespace Arkanoid
         private void MoveAlongBoard()
         {
             transform.position = new Vector2(_board.transform.position.x, transform.position.y);
+        }
+
+        private void OnBallFallCallback()
+        {
+            _rb.velocity = Vector2.zero;
+            transform.position = _startingPosition;
+            _isLaunched = false;
         }
 
         private void OnLaunch(InputAction.CallbackContext _)
