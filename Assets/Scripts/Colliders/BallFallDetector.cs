@@ -10,7 +10,7 @@ namespace Arkanoid.Colliders
 
         private void OnCollisionEnter2D()
         {
-            SceneLoadService.Instance.ResetScene();
+            ScenesService.Instance.ResetScene();
         }
 
         #endregion
