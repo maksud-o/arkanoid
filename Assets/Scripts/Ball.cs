@@ -1,6 +1,4 @@
-using Arkanoid.Colliders;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 namespace Arkanoid
@@ -15,8 +13,6 @@ namespace Arkanoid
         [Header("Ball Settings")]
         [SerializeField] private float _launchForce = 15;
 
-        [Header("Input Actions")]
-        [SerializeField] private InputActionReference _launchBallReference;
         private bool _isLaunched;
         private Rigidbody2D _rb;
 
@@ -34,12 +30,6 @@ namespace Arkanoid
             _startingPosition = transform.position;
         }
 
-        private void Start()
-        {
-            _launchBallReference.action.performed += OnLaunch;
-            BallFallDetector.OnBallFall += OnBallFallCallback;
-        }
-
         private void Update()
         {
             if (!_isLaunched)
@@ -48,10 +38,28 @@ namespace Arkanoid
             }
         }
 
-        private void OnDisable()
+        #endregion
+
+        #region Public methods
+
+        public void Launch()
         {
-            _launchBallReference.action.performed -= OnLaunch;
-            BallFallDetector.OnBallFall -= OnBallFallCallback;
+            if (_isLaunched)
+            {
+                return;
+            }
+
+            _isLaunched = true;
+            _rb.simulated = true;
+            _rb.AddForce(new Vector2(Random.Range(-1f, 1f), 1f).normalized * _launchForce,
+                ForceMode2D.Impulse);
+        }
+
+        public void ResetBall()
+        {
+            _rb.velocity = Vector2.zero;
+            transform.position = _startingPosition;
+            _isLaunched = false;
         }
 
         #endregion
@@ -61,24 +69,6 @@ namespace Arkanoid
         private void MoveAlongBoard()
         {
             transform.position = new Vector2(_board.transform.position.x, transform.position.y);
-        }
-
-        private void OnBallFallCallback()
-        {
-            _rb.velocity = Vector2.zero;
-            transform.position = _startingPosition;
-            _isLaunched = false;
-        }
-
-        private void OnLaunch(InputAction.CallbackContext _)
-        {
-            if (!_isLaunched)
-            {
-                _isLaunched = true;
-                _rb.simulated = true;
-                _rb.AddForce(new Vector2(Random.Range(-1f, 1f), 1f).normalized * _launchForce,
-                    ForceMode2D.Impulse);
-            }
         }
 
         #endregion

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Arkanoid.Services
 {
-    public abstract class SingletonMonoBehaviour<T> : MonoBehaviour
+    public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
         #region Properties
 

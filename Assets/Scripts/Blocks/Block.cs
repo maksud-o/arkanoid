@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Arkanoid.Services;
 using UnityEngine;
 
 namespace Arkanoid.Blocks
@@ -13,6 +14,7 @@ namespace Arkanoid.Blocks
         [Tooltip("Can be null")]
         [SerializeField] private List<Sprite> _multipleHitsSprites;
         [SerializeField] private int _scoreGiven = 1;
+        [SerializeField] private bool _isInvisible;
 
         private int _hitStage;
         private SpriteRenderer _spriteRenderer;
@@ -25,30 +27,38 @@ namespace Arkanoid.Blocks
 
         #endregion
 
-        #region Properties
-
-        protected SpriteRenderer SpriteRenderer => _spriteRenderer;
-
-        #endregion
-
         #region Unity lifecycle
 
         protected void Awake()
         {
+
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            if (_isInvisible)
+            {
+                _spriteRenderer.enabled = false;
+            }
         }
 
         protected void OnCollisionEnter2D()
         {
-            if (!IsAlive())
+            if (_spriteRenderer.enabled == false)
             {
-                gameObject.SetActive(false);
-                OnBlockDestroy?.Invoke(_scoreGiven);
+                _spriteRenderer.enabled = true;
+            }
+            else if (!IsAlive())
+            {
+                Destroy(gameObject);
             }
             else
             {
                 HandleMultiHit();
             }
+        }
+
+        private void OnDestroy()
+        {
+            PlayerStatsService.Instance.ChangeScore(_scoreGiven);
+            OnBlockDestroy?.Invoke(_scoreGiven);
         }
 
         #endregion

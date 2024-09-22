@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Arkanoid
 {
-    public class Setup : MonoBehaviour
+    public class Bootstrap : MonoBehaviour
     {
         [SerializeField] private string _startSceneName;
 

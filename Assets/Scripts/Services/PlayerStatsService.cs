@@ -7,19 +7,24 @@ namespace Arkanoid.Services
     {
         #region Variables
 
-        [SerializeField] private int _startingLives = 3; // Так можно?
+        [SerializeField] private int _startingLives = 3;
+        [SerializeField] private int _maxLives = 5;
 
         #endregion
 
         #region Events
 
-        public event Action OnLivesChange;
+        public event Action<int> OnLivesAdded;
+        public event Action<int> OnLivesRemoved;
+        public event Action OnScoreChange;
 
         #endregion
 
         #region Properties
 
         public int Lives { get; private set; }
+        public int MaxLives => _maxLives;
+        public int Score { get; private set; } = 0;
 
         #endregion
 
@@ -40,15 +45,32 @@ namespace Arkanoid.Services
 
         #region Public methods
 
-        public void GiveLives(int amount)
+        public void AddLives(int amount)
         {
-            if (amount == 0)
+            if (amount < 0)
             {
-                return;
+                Debug.LogError($"Invalid amount in {nameof(AddLives)}");
             }
 
             Lives += amount;
-            OnLivesChange?.Invoke();
+            OnLivesAdded?.Invoke(amount);
+        }
+
+        public void RemoveLives(int amount)
+        {
+            if (amount < 0)
+            {
+                Debug.LogError($"Invalid amount in {nameof(RemoveLives)}");
+            }
+            
+            Lives += amount;
+            OnLivesRemoved?.Invoke(amount);
+        }
+
+        public void ChangeScore(int score)
+        {
+            Score += score;
+            OnScoreChange?.Invoke();
         }
 
         #endregion
