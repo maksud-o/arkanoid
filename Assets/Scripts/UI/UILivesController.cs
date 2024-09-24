@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Arkanoid.Services;
 using UnityEngine;
@@ -21,7 +20,7 @@ namespace Arkanoid.UI
 
         private void Start()
         {
-            PlayerStatsService.Instance.OnLivesAdded += OnLivesAddedCallback;
+            PlayerStatsService.Instance.OnLivesAdded += OnLivesAddedCallback;  
             PlayerStatsService.Instance.OnLivesRemoved += OnLivesRemovedCallback;
 
             _lives = new List<GameObject>();
@@ -54,6 +53,7 @@ namespace Arkanoid.UI
             {
                 return;
             }
+
             for (var i = 0; i < amount; i++)
             {
                 inactiveLives[i].SetActive(true);
@@ -67,6 +67,7 @@ namespace Arkanoid.UI
             {
                 return;
             }
+
             for (var i = 0; i < amount; i++)
             {
                 activeLives[i].SetActive(false);

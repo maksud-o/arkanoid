@@ -45,26 +45,18 @@ namespace Arkanoid.Services
 
         #region Public methods
 
-        public void AddLives(int amount)
+        public void ChangeLives(int amount)
         {
-            if (amount < 0)
-            {
-                Debug.LogError($"Invalid amount in {nameof(AddLives)}");
-            }
-
             Lives += amount;
-            OnLivesAdded?.Invoke(amount);
-        }
-
-        public void RemoveLives(int amount)
-        {
-            if (amount < 0)
+            switch (amount)
             {
-                Debug.LogError($"Invalid amount in {nameof(RemoveLives)}");
+                case < 0:
+                    OnLivesRemoved?.Invoke(amount);
+                    break;
+                case > 0:
+                    OnLivesAdded?.Invoke(amount);
+                    break;
             }
-            
-            Lives += amount;
-            OnLivesRemoved?.Invoke(amount);
         }
 
         public void ChangeScore(int score)

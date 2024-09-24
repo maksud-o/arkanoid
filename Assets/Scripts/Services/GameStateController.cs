@@ -30,7 +30,7 @@ namespace Arkanoid.Services
         private void ResetGame()
         {
             _ball.ResetBall();
-            PlayerStatsService.Instance.RemoveLives(1);
+            PlayerStatsService.Instance.ChangeLives(-1);
             if (PlayerStatsService.Instance.Lives <= 0)
             {
                 RestartGame();
