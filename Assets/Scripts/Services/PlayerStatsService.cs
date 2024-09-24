@@ -51,7 +51,7 @@ namespace Arkanoid.Services
             switch (amount)
             {
                 case < 0:
-                    OnLivesRemoved?.Invoke(amount);
+                    OnLivesRemoved?.Invoke(Math.Abs(amount));
                     break;
                 case > 0:
                     OnLivesAdded?.Invoke(amount);

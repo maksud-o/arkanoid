@@ -1,3 +1,4 @@
+using Arkanoid.Services;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -35,6 +36,10 @@ namespace Arkanoid
             if (!_isLaunched)
             {
                 MoveAlongBoard();
+            }
+            if(!_isLaunched && GamePrefsService.Instance.IsAutoPlay)
+            {
+                Launch();
             }
         }
 

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Arkanoid.Services;
 using UnityEngine;
@@ -21,17 +20,10 @@ namespace Arkanoid.Blocks
 
         #endregion
 
-        #region Events
-
-        public static event Action<int> OnBlockDestroy;
-
-        #endregion
-
         #region Unity lifecycle
 
         protected void Awake()
         {
-
             _spriteRenderer = GetComponent<SpriteRenderer>();
             if (_isInvisible)
             {
@@ -47,18 +39,13 @@ namespace Arkanoid.Blocks
             }
             else if (!IsAlive())
             {
-                Destroy(gameObject);
+                PlayerStatsService.Instance.ChangeScore(_scoreGiven);
+                gameObject.SetActive(false);
             }
             else
             {
                 HandleMultiHit();
             }
-        }
-
-        private void OnDestroy()
-        {
-            PlayerStatsService.Instance.ChangeScore(_scoreGiven);
-            OnBlockDestroy?.Invoke(_scoreGiven);
         }
 
         #endregion

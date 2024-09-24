@@ -62,6 +62,7 @@ namespace Arkanoid.UI
 
         private void OnLivesRemovedCallback(int amount)
         {
+            
             GameObject[] activeLives = _lives.Where(l => l.activeSelf).ToArray();
             if (activeLives.Length == 0)
             {
