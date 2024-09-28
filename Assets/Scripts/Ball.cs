@@ -1,5 +1,9 @@
+using System;
+using Arkanoid.Colliders;
 using Arkanoid.Services;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Arkanoid
@@ -9,6 +13,7 @@ namespace Arkanoid
     {
         #region Variables
 
+        [SerializeField] private InputActionReference _launchBallInputActionReference;
         [SerializeField] private GameObject _board;
 
         [Header("Ball Settings")]
@@ -27,8 +32,22 @@ namespace Arkanoid
         {
             _rb = GetComponent<Rigidbody2D>();
 
+            _launchBallInputActionReference.action.performed += OnLaunchBallPerformedCallback;
+            BallFallDetector.OnBallFall += OnBallFallCallback;
+
             _rb.simulated = false;
             _startingPosition = transform.position;
+        }
+
+        private void OnDestroy()
+        {
+            _launchBallInputActionReference.action.performed -= OnLaunchBallPerformedCallback;
+            BallFallDetector.OnBallFall -= OnBallFallCallback;
+        }
+
+        private void OnLaunchBallPerformedCallback(InputAction.CallbackContext context)
+        {
+            Launch();
         }
 
         private void Update()
@@ -47,7 +66,7 @@ namespace Arkanoid
 
         #region Public methods
 
-        public void Launch()
+        private void Launch()
         {
             if (_isLaunched)
             {
@@ -60,7 +79,7 @@ namespace Arkanoid
                 ForceMode2D.Impulse);
         }
 
-        public void ResetBall()
+        private void OnBallFallCallback()
         {
             _rb.velocity = Vector2.zero;
             transform.position = _startingPosition;

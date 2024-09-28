@@ -1,4 +1,5 @@
 using System;
+using Arkanoid.Services;
 using UnityEngine;
 
 namespace Arkanoid.Colliders
@@ -16,6 +17,11 @@ namespace Arkanoid.Colliders
 
         private void OnCollisionEnter2D()
         {
+            PlayerStatsService.Instance.ChangeLives(-1);
+            if (PlayerStatsService.Instance.Lives <= 0)
+            {
+                ScenesService.Instance.ResetScene();
+            }
             OnBallFall?.Invoke();
         }
 
