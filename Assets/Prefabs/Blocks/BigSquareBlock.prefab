@@ -12,9 +12,21 @@ PrefabInstance:
       propertyPath: _scoreGiven
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1036887307251093930, guid: 3f33026429140c14190845b102269152, type: 3}
+      propertyPath: _pickUpChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036887307251093930, guid: 3f33026429140c14190845b102269152, type: 3}
+      propertyPath: _pickUps.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036887307251093930, guid: 3f33026429140c14190845b102269152, type: 3}
+      propertyPath: _pickUps.Array.data[0]
+      value: 
+      objectReference: {fileID: -4821952286932306148, guid: 522dd709f7ee4734ab9a026ee127e5b4, type: 3}
     - target: {fileID: 3253555806695585200, guid: 3f33026429140c14190845b102269152, type: 3}
       propertyPath: m_Name
-      value: BigSquareBlock Variant
+      value: BigSquareBlock
       objectReference: {fileID: 0}
     - target: {fileID: 4640721629616092951, guid: 3f33026429140c14190845b102269152, type: 3}
       propertyPath: m_Size.x

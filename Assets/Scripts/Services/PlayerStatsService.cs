@@ -30,9 +30,8 @@ namespace Arkanoid.Services
 
         #region Unity lifecycle
 
-        private new void Awake()
+        protected override void AwakeAddition()
         {
-            base.Awake();
             Lives = _startingLives;
         }
 

@@ -15,14 +15,18 @@ namespace Arkanoid.Colliders
 
         #region Unity lifecycle
 
-        private void OnCollisionEnter2D()
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            PlayerStatsService.Instance.ChangeLives(-1);
-            if (PlayerStatsService.Instance.Lives <= 0)
+            if (other.gameObject.CompareTag(GameInfo.BallTag))
             {
-                ScenesService.Instance.ResetScene();
+                PlayerStatsService.Instance.ChangeLives(-1);
+                if (PlayerStatsService.Instance.Lives <= 0)
+                {
+                    ScenesService.Instance.ResetScene();
+                }
+
+                OnBallFall?.Invoke();
             }
-            OnBallFall?.Invoke();
         }
 
         #endregion

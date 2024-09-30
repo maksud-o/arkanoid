@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4789051269690890985}
   - component: {fileID: 5343161545208901526}
   - component: {fileID: 4951533556918317988}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TriangleBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d166e8a13f10dc640bc5854cfb45c201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballTag: Ball
   _multipleHitsSprites: []
+  _pickUps: []
+  _pickUpChance: 0
   _scoreGiven: 1
+  _isInvisible: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3768890052749656906}
   - component: {fileID: 5896942789083658518}
   - component: {fileID: 8537264220712867525}
+  - component: {fileID: 1034793403023260761}
   m_Layer: 0
   m_Name: PlayerBall
   m_TagString: Ball
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2506534358992088884}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -6.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -161,6 +162,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0799a29f46ce1b45bdc2188e2e1849f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _launchBallInputActionReference: {fileID: 8610656151365823519, guid: dccfbf5575cc6bf42832951ac7520a68, type: 3}
   _board: {fileID: 0}
+  _ballCollisionSound: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
   _launchForce: 15
-  _launchBallReference: {fileID: 8610656151365823519, guid: dccfbf5575cc6bf42832951ac7520a68, type: 3}
+--- !u!114 &1034793403023260761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506534358992088884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77df78a8f44e4594831392a7c3635b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxScaleMultiplier: 5
+  _minScaleMultiplier: 0.5
+  _scaleStep: 0.5
+  _catchesAmount: 3
+  _explosionRadius: 3
+  _explosiveLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _explosionVFXPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  _explosionAudioClip: {fileID: 8300000, guid: cabfae866cab347928b74b7d0ca6bfa9, type: 3}

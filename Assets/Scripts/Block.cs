@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+using Arkanoid.PickUps;
 using Arkanoid.Services;
 using UnityEngine;
 
-namespace Arkanoid.Blocks
+namespace Arkanoid
 {
     [RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
     public class Block : MonoBehaviour
@@ -11,7 +11,10 @@ namespace Arkanoid.Blocks
 
         [Header("Block Settings")]
         [Tooltip("Can be null")]
-        [SerializeField] private List<Sprite> _multipleHitsSprites;
+        [SerializeField] private Sprite[] _multipleHitsSprites;
+        [SerializeField] private PickUp[] _pickUps;
+        [Range(0.01f, 1f)]
+        [SerializeField] private float _pickUpChance = 1f;
         [SerializeField] private int _scoreGiven = 1;
         [SerializeField] private bool _isInvisible;
 
@@ -41,6 +44,7 @@ namespace Arkanoid.Blocks
             {
                 PlayerStatsService.Instance.ChangeScore(_scoreGiven);
                 gameObject.SetActive(false);
+                ProcessPickUp();
             }
             else
             {
@@ -59,7 +63,20 @@ namespace Arkanoid.Blocks
 
         private bool IsAlive()
         {
-            return _hitStage < _multipleHitsSprites.Count;
+            return _hitStage < _multipleHitsSprites.Length;
+        }
+
+        private void ProcessPickUp()
+        {
+            if (_pickUps.Length == 0)
+            {
+                return;
+            }
+
+            if (Random.Range(0.01f, 1f) <= _pickUpChance)
+            {
+                Instantiate(_pickUps[Random.Range(0, _pickUps.Length)], transform.position, Quaternion.identity);
+            }
         }
 
         #endregion

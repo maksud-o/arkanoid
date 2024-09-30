@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Board
+  - FallCollider
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Explosives
   - Water
   - UI
   - 

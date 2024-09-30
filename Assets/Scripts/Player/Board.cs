@@ -2,7 +2,7 @@ using Arkanoid.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Arkanoid
+namespace Arkanoid.Player
 {
     [RequireComponent(typeof(BoxCollider2D))]
     public class Board : MonoBehaviour

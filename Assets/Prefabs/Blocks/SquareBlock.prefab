@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6859971354901131193}
   - component: {fileID: 4640721629616092951}
   - component: {fileID: 1036887307251093930}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SquareBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d166e8a13f10dc640bc5854cfb45c201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballTag: Ball
   _multipleHitsSprites: []
+  _pickUps: []
+  _pickUpChance: 0
   _scoreGiven: 1
+  _isInvisible: 0

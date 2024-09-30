@@ -12,7 +12,7 @@ namespace Arkanoid.Services
 
         #region Unity lifecycle
 
-        protected void Awake()
+        private void Awake()
         {
             if (Instance != null)
             {
@@ -23,7 +23,14 @@ namespace Arkanoid.Services
             transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
             Instance = GetComponent<T>();
+            AwakeAddition();
         }
+
+        #endregion
+
+        #region Protected methods
+
+        protected virtual void AwakeAddition() { }
 
         #endregion
     }
