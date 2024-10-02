@@ -87,8 +87,9 @@ namespace Arkanoid.Player
 
         private void BallExplodePickUpCallback()
         {
-            _isExplodeActive = true;
-            StartCoroutine(ElapseTime(_explodeDuration));
+            _isExplodeActive = true;  
+            StopCoroutine(ElapseExplodeBonusTime());
+            StartCoroutine(ElapseExplodeBonusTime());
         }
 
         private void BallMultiplyPickUpCallback() // todo: object pool
@@ -111,9 +112,9 @@ namespace Arkanoid.Player
             OnResizeActivated?.Invoke(-_scaleProportions * _currentScaleMultiplier);
         }
 
-        private IEnumerator ElapseTime(float seconds)
+        private IEnumerator ElapseExplodeBonusTime()
         {
-            yield return new WaitForSeconds(seconds);
+            yield return new WaitForSeconds(_explodeDuration);
             _isExplodeActive = false;
         }
 
@@ -139,7 +140,10 @@ namespace Arkanoid.Player
                     Physics2D.OverlapCircleAll(transform.position, _explosionRadius, _explosivesLayerMask);
                 foreach (Collider2D col in colliders)
                 {
-                    Destroy(col.gameObject);
+                    if (col.gameObject.TryGetComponent(out Block block))
+                    {
+                        block.ForceCollision();
+                    }
                 }
             }
         }

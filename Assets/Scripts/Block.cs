@@ -36,20 +36,16 @@ namespace Arkanoid
 
         protected void OnCollisionEnter2D()
         {
-            if (_spriteRenderer.enabled == false)
-            {
-                _spriteRenderer.enabled = true;
-            }
-            else if (!IsAlive())
-            {
-                PlayerStatsService.Instance.ChangeScore(_scoreGiven);
-                gameObject.SetActive(false);
-                ProcessPickUp();
-            }
-            else
-            {
-                HandleMultiHit();
-            }
+            ProcessCollision();
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public void ForceCollision()
+        {
+            ProcessCollision();
         }
 
         #endregion
@@ -64,6 +60,24 @@ namespace Arkanoid
         private bool IsAlive()
         {
             return _hitStage < _multipleHitsSprites.Length;
+        }
+
+        private void ProcessCollision()
+        {
+            if (_spriteRenderer.enabled == false)
+            {
+                _spriteRenderer.enabled = true;
+            }
+            else if (!IsAlive())
+            {
+                PlayerStatsService.Instance.ChangeScore(_scoreGiven);
+                gameObject.SetActive(false);
+                ProcessPickUp();
+            }
+            else
+            {
+                HandleMultiHit();
+            }
         }
 
         private void ProcessPickUp()

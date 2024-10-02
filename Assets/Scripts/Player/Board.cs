@@ -31,6 +31,11 @@ namespace Arkanoid.Player
 
         private void Update()
         {
+            if (PauseController.IsPaused)
+            {
+                return;
+            }
+
             if (GamePrefsService.Instance.IsAutoPlay)
             {
                 MoveAlongBallPosition();
