@@ -21,8 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using UnityEngine;
+
 using UnityEditor;
+using UnityEngine;
 
 namespace Kino
 {
@@ -30,18 +31,23 @@ namespace Kino
     [CustomEditor(typeof(Bloom))]
     public class BloomEditor : Editor
     {
-        BloomGraphDrawer _graph;
+        #region Variables
 
-        SerializedProperty _threshold;
-        SerializedProperty _softKnee;
-        SerializedProperty _radius;
-        SerializedProperty _intensity;
-        SerializedProperty _highQuality;
-        SerializedProperty _antiFlicker;
+        private static readonly GUIContent _textThreshold = new("Threshold (gamma)");
+        private SerializedProperty _antiFlicker;
+        private BloomGraphDrawer _graph;
+        private SerializedProperty _highQuality;
+        private SerializedProperty _intensity;
+        private SerializedProperty _radius;
+        private SerializedProperty _softKnee;
 
-        static GUIContent _textThreshold = new GUIContent("Threshold (gamma)");
+        private SerializedProperty _threshold;
 
-        void OnEnable()
+        #endregion
+
+        #region Unity lifecycle
+
+        private void OnEnable()
         {
             _graph = new BloomGraphDrawer();
             _threshold = serializedObject.FindProperty("_threshold");
@@ -52,11 +58,16 @@ namespace Kino
             _antiFlicker = serializedObject.FindProperty("_antiFlicker");
         }
 
+        #endregion
+
+        #region Public methods
+
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
 
-            if (!serializedObject.isEditingMultipleObjects) {
+            if (!serializedObject.isEditingMultipleObjects)
+            {
                 EditorGUILayout.Space();
                 _graph.Prepare((Bloom)target);
                 _graph.DrawGraph();
@@ -72,5 +83,7 @@ namespace Kino
 
             serializedObject.ApplyModifiedProperties();
         }
+
+        #endregion
     }
 }

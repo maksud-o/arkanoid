@@ -35,16 +35,16 @@ namespace Kino
         // Number of vertices in curve
         private const int _curveResolution = 96;
         private readonly Vector3[] _curveVertices = new Vector3[_curveResolution];
+        private readonly Vector3[] _lineVertices = new Vector3[2];
+
+        // Vertex buffers
+        private readonly Vector3[] _rectVertices = new Vector3[4];
         private float _intensity;
         private float _knee;
-        private readonly Vector3[] _lineVertices = new Vector3[2];
         private float _rangeX;
         private float _rangeY;
 
         private Rect _rectGraph;
-
-        // Vertex buffers
-        private readonly Vector3[] _rectVertices = new Vector3[4];
 
         private float _threshold;
 
